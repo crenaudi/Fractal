@@ -88,7 +88,7 @@ OBJ = $(SRC:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@$(CC) $(CFLAGS) -g3 $(SRC) -I .
+	@$(CC) $(CFLAGS) -fsanitize=address -g3 $(SRC) -I .
 	@$(AR) $(NAME) $(OBJ)
 	@$(RL) $(NAME)
 	@echo "/// all lib ok ///"

@@ -18,9 +18,8 @@ static void		need_px(t_trace *b, t_env *env)
 	int y;
 
 	x = b->p1.x + (WIDTH / 2);
-	y = b->p1.y + ((HEIGHT / 2) - (int)env->scale);
-	if ((x >= 0 && x <= WIDTH) && (y >= 0 && y <= (HEIGHT)))
-		mlx_pixel_put(env->mlx_ptr, env->win_ptr, x, y, 0x336699);
+	y = b->p1.y + (HEIGHT / 2);
+	mlx_pixel_put(env->mlx_ptr, env->win_ptr, x, y, 0xFFFFFF);
 }
 
 static void		init_trace(t_trace *b, t_point p1, t_point p2)
