@@ -25,6 +25,8 @@ LIB2 = -L./$(LIBGFX_FOLDER) -lft
 LIBGFX = $(LIBGFX_FOLDER)/gfx.a
 RM = rm -f
 SRC = src/fractol.c \
+			src/flocon.c	\
+			src/trace.c		\
 			src/key.c
 OBJ = $(SRC:.c=.o)
 
