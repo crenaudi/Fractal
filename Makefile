@@ -25,8 +25,6 @@ LIB2 = -L./$(LIBGFX_FOLDER) -lft
 LIBGFX = $(LIBGFX_FOLDER)/gfx.a
 RM = rm -f
 SRC = src/fractol.c \
-			src/flocon.c	\
-			src/trace.c		\
 			src/key.c
 OBJ = $(SRC:.c=.o)
 
@@ -41,7 +39,7 @@ $(LIBGFX):
 	make -sC $(LIBGFX_FOLDER)
 
 $(NAME): $(OBJ) $(LIBFT) $(LIBGFX)
-	@$(CC) -fsanitize=address -g3 $(MINILIBX) $(FRAMEWORK) -o $(NAME) $(LIB_MATH) $(LIB) $(LIB2) $(LIBGFX) $(OBJ)
+	@$(CC) -g3 $(MINILIBX) $(FRAMEWORK) -o $(NAME) $(LIB_MATH) $(LIB) $(LIB2) $(LIBGFX) $(OBJ)
 	@echo "/// all fdf ///"
 
 clean:
