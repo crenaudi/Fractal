@@ -4,6 +4,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <pthread.h>
 # include "mlx.h"
 # include "libft.h"
 # include "gfx.h"
@@ -17,9 +18,9 @@
 # define ZOOM			116
 # define DZOOM		121
 
-typedef struct s_env    t_env;
-typedef struct s_trace  t_trace;
-typedef struct s_lst    t_lst;
+typedef struct s_env      t_env;
+typedef struct s_trace    t_trace;
+typedef struct s_lst      t_lst;
 
 struct s_env
 {
@@ -29,6 +30,7 @@ struct s_env
   int           n;
   t_point       *tab;
   struct s_lst  *p;
+
   t_vec2        scale;
   float         x_img;
   float         y_img;
@@ -42,17 +44,6 @@ struct s_env
   float         c_i;
   float         zoom;
   float         iteration_max;
-};
-
-struct  s_trace
-{
-  t_vec2          p1;
-  t_vec2          p2;
-  t_vec2          dir;
-  t_vec2          sens;
-  float           t;
-  struct s_color  c1;
-  struct s_color  c2;
 };
 
 struct  s_lst

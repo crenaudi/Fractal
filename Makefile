@@ -17,6 +17,7 @@ CFLAGS += -I./$(LIBGFX_FOLDER)
 MINILIBX = -I /usr/local/include/mlx.h -L /usr/local/lib/ -lmlx
 FRAMEWORK = -framework OpenGl -framework AppKit
 LIB_MATH = -lm
+THREAD = -lpthread
 LIBFT_FOLDER = src/libft
 LIB = -L./$(LIBFT_FOLDER) -lft
 LIBFT = $(LIBFT_FOLDER)/libft.a
@@ -41,7 +42,7 @@ $(LIBGFX):
 	make -sC $(LIBGFX_FOLDER)
 
 $(NAME): $(OBJ) $(LIBFT) $(LIBGFX)
-	@$(CC) -g3 $(MINILIBX) $(FRAMEWORK) -o $(NAME) $(LIB_MATH) $(LIB) $(LIB2) $(LIBGFX) $(OBJ)
+	@$(CC) -g3 $(MINILIBX) $(FRAMEWORK) $(THREAD) -o $(NAME) $(LIB_MATH) $(LIB) $(LIB2) $(LIBGFX) $(OBJ)
 	@echo "/// all fdf ///"
 
 clean:
