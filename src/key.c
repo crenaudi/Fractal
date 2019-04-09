@@ -7,6 +7,16 @@ void win_close(t_env *env)
   exit(0);
 }
 
+void	legend(t_env *env)
+{
+	mlx_string_put(env->mlx_ptr, env->win_ptr, 10, 20, 0xFFFFFFF, "ZOOM :");
+	mlx_string_put(env->mlx_ptr, env->win_ptr, 20, 40, 0x999999, "<- / ->");
+	mlx_string_put(env->mlx_ptr, env->win_ptr, 10, 70, 0xFFFFFFF,
+			"DISPLACEMENT :");
+	mlx_string_put(env->mlx_ptr, env->win_ptr, 20, 90, 0x999999,
+			"W / A / S / D");
+}
+
 int		key_press(int key, void *param)
 {
   t_env *env;
@@ -20,7 +30,6 @@ int		key_press(int key, void *param)
     env->scale = 1;
   if (key == 121)
     env->scale = 1;
-  mandelbrot(env);
   return (SUCCESS);
 }
 

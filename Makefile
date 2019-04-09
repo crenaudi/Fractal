@@ -24,7 +24,9 @@ LIBGFX_FOLDER = src/libgfx
 LIB2 = -L./$(LIBGFX_FOLDER) -lft
 LIBGFX = $(LIBGFX_FOLDER)/gfx.a
 RM = rm -f
-SRC = src/fractol.c \
+SRC = src/main.c \
+			src/iterrative_fractal.c \
+			src/init.c \
 			src/key.c
 OBJ = $(SRC:.c=.o)
 

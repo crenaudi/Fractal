@@ -63,12 +63,16 @@ struct  s_lst
 
 int       init_env(t_env *env);
 void      win_close(t_env *env);
-t_lst     *new_point(float x, float y);
-int       triangle(t_env *env);
+//t_lst     *new_point(float x, float y);
+//int       triangle(t_env *env);
+t_env     *init_mandelbrot(t_env *env);
+t_env     *init_julia(t_env *env);
+void      interative_fractal(t_env *env, int x, int y, int i);
+int       mandelbrot(t_env *env);
+int       julia(t_env *env);
 void			line(t_env *env, t_point p1, t_point p2);
 int		    key_press(int key, void *param);
 int		    key_release(int key, void *param);
 void	    legend(t_env *env);
-int       mandelbrot(t_env *env);
 
 # endif
