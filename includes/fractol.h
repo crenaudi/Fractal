@@ -4,6 +4,9 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
 #include <pthread.h>
 # include "mlx.h"
 # include "libft.h"
@@ -19,8 +22,7 @@
 # define DZOOM		121
 
 typedef struct s_env      t_env;
-typedef struct s_trace    t_trace;
-typedef struct s_lst      t_lst;
+typedef struct s_envthread   t_envthread;
 
 struct s_env
 {
@@ -30,37 +32,47 @@ struct s_env
   int           n;
   t_point       *tab;
   struct s_lst  *p;
-
-  t_vec2        scale;
-  float         x_img;
-  float         y_img;
+  t_envthread   *e_thread1;
+  t_envthread   *e_thread2;
+  t_envthread   *e_thread3;
+  t_envthread   *e_thread4;
   float         x1;
   float         x2;
   float         y1;
   float         y2;
+  t_vec2        scale;
+  float         x_img;
+  float         y_img;
+};
+
+struct s_envthread
+{
+  void          *mlx_ptr_cpy;
+  void          *win_ptr_cpy;
+  t_vec3        fractal;
+  float         x;
+  float         x1;
+  float         x2;
+  float         y1;
+  float         y2;
+  float         zoom;
   float         z_r;
   float         z_i;
   float         c_r;
   float         c_i;
-  float         zoom;
+  float         x_img;
+  float         y_img;
   float         iteration_max;
-};
-
-struct  s_lst
-{
-  t_vec3          p;
-  struct s_lst    *next;
 };
 
 int       init_env(t_env *env);
 void      win_close(t_env *env);
-//t_lst     *new_point(float x, float y);
-//int       triangle(t_env *env);
 t_env     *init_mandelbrot(t_env *env);
 t_env     *init_julia(t_env *env);
-void      interative_fractal(t_env *env, int x, int y, int i);
-int       mandelbrot(t_env *env);
-int       julia(t_env *env);
+void      *open_thread(void *param);
+int       fractal(t_env *env);
+void      julia(t_envthread *e, int i, float y);
+void      mandelbrot(t_envthread *e, int i, float y);
 void			line(t_env *env, t_point p1, t_point p2);
 int		    key_press(int key, void *param);
 int		    key_release(int key, void *param);

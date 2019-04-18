@@ -43,14 +43,14 @@ int main(int argc, char **argv)
     ft_putendl("error : too much arguments.");
     return (0);
   }
-  legend(&env);
+  //legend(&env);
   if (ft_strcmp(argv[1], "mandelbrot") == 0)
   {
-    mandelbrot(init_mandelbrot(&env));
+    fractal(init_mandelbrot(&env));
   }
   else if (ft_strcmp(argv[1], "julia") == 0)
   {
-    julia(init_julia(&env));
+    fractal(init_julia(&env));
   }
   else
   {
