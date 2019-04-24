@@ -22,6 +22,7 @@ SRC = ft_gfx.c		\
 		normalize.c		\
 		product.c			\
 		rotation.c		\
+		img.c					\
 	  scale.c
 OBJ = $(SRC:.c=.o)
 

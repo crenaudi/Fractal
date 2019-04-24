@@ -1,65 +1,66 @@
 #include "../includes/fractol.h"
 
+static void		px(int *data, int x, int y, int color)
+{
+	int		index;
 
+	if (x > 0 && x < WIDTH && y > 0 && y < HEIGHT)
+	{
+		index = x + y * WIDTH;
+		if (index < 0 || index >= HEIGHT * WIDTH)
+			return ;
+		data[index] = color;
+	}
+}
 
 void mandelbrot(t_envthread *e, int i, float y)
 {
     float tmp;
 
-    e->c_r = e->x / e->zoom + e->x1;
+    e->c_r = e->x.x / e->zoom + e->x.y;
     e->c_i = y / e->zoom + e->y1;
     e->z_r = 0;
     e->z_i = 0;
-    while ((e->z_r * e->z_r + e->z_i * e->z_i) < 4 && i < e->iteration_max)
+    while ((e->z_r * e->z_r + e->z_i * e->z_i) < 4 && i < e->it_max)
     {
       tmp = e->z_r;
       e->z_r = e->z_r * e->z_r - e->z_i * e->z_i + e->c_r;
       e->z_i = 2 * e->z_i * tmp + e->c_i;
       i = i + 1;
     }
-    if (i == e->iteration_max)
-    {
-      mlx_pixel_put(e->mlx_ptr_cpy, e->win_ptr_cpy,
-        (e->x - (int)(e->x_img / 2)) + (WIDTH / 2),
-        (y - (int)(e->y_img / 2)) + (HEIGHT / 2), 0xFFFFFFF);
-    }
+    if (i == e->it_max)
+        px(e->data, (e->x.x - (int)(e->x_img / 2)) + M_WTH,
+          (y - (int)(e->y_img / 2)) + M_HHT, 0x000000);
     else
-    {
-      mlx_pixel_put(e->mlx_ptr_cpy, e->win_ptr_cpy,
-        (e->x - (int)(e->x_img / 2)) + (WIDTH / 2),
-        (y - (int)(e->y_img / 2)) + (HEIGHT / 2),
-        lerp_non_init_color(0x000000, 0x5588BB, i / e->iteration_max));
-    }
+        px(e->data, (e->x.x - (int)(e->x_img / 2)) + M_WTH,
+          (y - (int)(e->y_img / 2)) + M_HHT,
+          lerp_non_init_color(0x110022, 0xDDBB77, i / e->it_max));
 }
 
 void julia(t_envthread *e, int i, float y)
 {
-    float tmp;
+		float   c_r;
+		float   c_i;
+    float 	tmp;
 
-    e->c_r = 0.285;
-    e->c_i = 0.1;
-    e->z_r = e->x / e->zoom + e->x1;
+    c_r = e->c_r;
+    c_i = e->c_i;
+    e->z_r = e->x.x / e->zoom + e->x.y;
     e->z_i = y / e->zoom + e->y1;
-    while ((e->z_r * e->z_r + e->z_i * e->z_i) < 4 && i < e->iteration_max)
+    while ((e->z_r * e->z_r + e->z_i * e->z_i) < 4 && i < e->it_max)
     {
       tmp = e->z_r;
       e->z_r = e->z_r * e->z_r - e->z_i * e->z_i + e->c_r;
       e->z_i = 2 * e->z_i * tmp + e->c_i;
       i = i + 1;
     }
-    if (i == e->iteration_max)
-    {
-      mlx_pixel_put(e->mlx_ptr_cpy, e->win_ptr_cpy,
-        (e->x - (int)(e->x_img / 2)) + (WIDTH / 2),
-        (y - (int)(e->y_img / 2)) + (HEIGHT / 2), 0xFFFFFFF);
-    }
+    if (i == e->it_max)
+			px(e->data, (e->x.x - (int)(e->x_img / 2)) + M_WTH,
+          (y - (int)(e->y_img / 2)) + M_HHT, 0x000000);
     else
-    {
-      mlx_pixel_put(e->mlx_ptr_cpy, e->win_ptr_cpy,
-        (e->x - (int)(e->x_img / 2)) + (WIDTH / 2),
-        (y - (int)(e->y_img / 2)) + (HEIGHT / 2),
-        lerp_non_init_color(0x000000, 0x5588BB, i / e->iteration_max));
-    }
+        px(e->data, (e->x.x - (int)(e->x_img / 2)) + M_WTH,
+          (y - (int)(e->y_img / 2)) + M_HHT,
+          lerp_non_init_color(0x001122, 0x77AADD, i / e->it_max));
 }
 
 void *open_thread(void *param)
@@ -82,52 +83,28 @@ void *open_thread(void *param)
 
 int fractal(t_env *env)
 {
-    float x;
-    t_vec3 part;
+    int       i;
+    float     x;
+    float     part;
     pthread_t *thread;
 
-    //is_event(env);
-    if (!(thread = (pthread_t *)malloc(sizeof(pthread_t) * 4)))
+    ft_bzero(env->img->data, WIDTH * HEIGHT * (env->img->bpp / 8));
+    if (!(thread = (pthread_t *)malloc(sizeof(pthread_t) * THREADS)))
       return (ERROR);
-    part.x = env->y_img / 4;
-    part.y = part.x * 2;
-    part.z = part.x * 3;
-    x = 0.f;
-    while (x < env->x_img)
+    part = env->y_img / THREADS;
+    x = -1.f;
+    i = 0;
+    while (x++ < env->x_img)
     {
-      if (x < part.x)
-      {
-        env->e_thread1->x = x;
-        if (pthread_create(&thread[0], NULL, open_thread, (void *)env->e_thread1))
-          return (EXIT_FAILURE);
-        if (pthread_join(thread[0], NULL))
-          return EXIT_FAILURE;
-      }
-      if (x > part.x && x < part.y)
-      {
-        env->e_thread2->x = x;
-        if (pthread_create(&thread[1], NULL, open_thread, (void *)env->e_thread2))
-          return (EXIT_FAILURE);
-        if (pthread_join(thread[1], NULL))
-          return EXIT_FAILURE;
-      }
-      if (x > part.y && x < part.z)
-      {
-        env->e_thread3->x = x;
-        if (pthread_create(&thread[2], NULL, open_thread, (void *)env->e_thread3))
-          return (EXIT_FAILURE);
-        if (pthread_join(thread[2], NULL))
-          return EXIT_FAILURE;
-      }
-      if (x > part.z && x < env->x_img)
-      {
-        env->e_thread4->x = x;
-        if (pthread_create(&thread[3], NULL, open_thread, (void *)env->e_thread4))
-          return (EXIT_FAILURE);
-        if (pthread_join(thread[3], NULL))
-          return EXIT_FAILURE;
-      }
-      x++;
+      env->e_thread[i]->x.x = x;
+      if (pthread_create(&thread[i], NULL, open_thread, (void *)env->e_thread[i]))
+        return (EXIT_FAILURE);
+      if (pthread_join(thread[i], NULL))
+        return EXIT_FAILURE;
+      if (x == part && part <= WIDTH && i++)
+        part += part;
     }
+    mlx_put_image_to_window(env->mlx_ptr, env->win_ptr, env->img->ptr, 0, 0);
+		legend(env);
     return (SUCCESS);
 }

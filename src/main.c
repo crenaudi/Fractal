@@ -43,7 +43,6 @@ int main(int argc, char **argv)
     ft_putendl("error : too much arguments.");
     return (0);
   }
-  //legend(&env);
   if (ft_strcmp(argv[1], "mandelbrot") == 0)
   {
     fractal(init_mandelbrot(&env));
@@ -53,11 +52,9 @@ int main(int argc, char **argv)
     fractal(init_julia(&env));
   }
   else
-  {
-    ft_putendl("error : incorrect name argument.");
-    exit(0);
-  }
+    is_error(3);
   //mlx_loop_hook(env.win_ptr, mandelbrot, (void *)&env);
+  mlx_hook(env.win_ptr, 4, 0, mouse_event, (void*)&env);
   mlx_hook(env.win_ptr, 2, 0, key_press, (void *)&env);
   mlx_hook(env.win_ptr, 3, 0, key_release, (void *)&env);
   mlx_loop(env.mlx_ptr);

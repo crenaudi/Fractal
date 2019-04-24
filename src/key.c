@@ -7,14 +7,47 @@ void win_close(t_env *env)
   exit(0);
 }
 
-void	legend(t_env *env)
+static void	zoom(int x, int y, t_envthread *e)
 {
-	mlx_string_put(env->mlx_ptr, env->win_ptr, 10, 20, 0xFFFFFFF, "ZOOM :");
-	mlx_string_put(env->mlx_ptr, env->win_ptr, 20, 40, 0x999999, "<- / ->");
-	mlx_string_put(env->mlx_ptr, env->win_ptr, 10, 70, 0xFFFFFFF,
-			"DISPLACEMENT :");
-	mlx_string_put(env->mlx_ptr, env->win_ptr, 20, 90, 0x999999,
-			"W / A / S / D");
+	e->x.y = (x / e->zoom + e->x.y) - (x / (e->zoom * 1.3));
+	e->y1 = (y / e->zoom + e->y1) - (y / (e->zoom * 1.3));
+	e->zoom *= 1.3;
+	e->it_max++;
+}
+
+static void	dezoom(int x, int y, t_envthread *e)
+{
+	e->x.y = (x / e->zoom + e->x.y)  - (x / (e->zoom / 1.3));
+	e->y1 = (y / e->zoom + e->y1) - (y / (e->zoom / 1.3));
+	e->zoom /= 1.3;
+	e->it_max--;
+}
+
+int   mouse_event(int code, int x, int y, void *param)
+{
+  t_env *env;
+  int   i;
+
+  env = (t_env *)param;
+  i = 0;
+  if (code == 4 || code == 1)
+  {
+    while (i < THREADS)
+    {
+      zoom(x, y, &env->e_thread[i][0]);
+      i++;
+    }
+  }
+	else if (code == 5 || code == 2)
+  {
+    while (i < THREADS)
+    {
+      dezoom(x, y, &env->e_thread[i][0]);
+      i++;
+    }
+  }
+  fractal(env);
+  return (SUCCESS);
 }
 
 int		key_press(int key, void *param)
@@ -26,10 +59,6 @@ int		key_press(int key, void *param)
     win_close(env);
   if (key == MOVE)
     env->move = 1;
-  if (key == 116)
-    env->scale = 1;
-  if (key == 121)
-    env->scale = 1;
   return (SUCCESS);
 }
 
@@ -40,9 +69,5 @@ int		key_release(int key, void *param)
   env = (t_env *)param;
   if (key == MOVE)
     env->move = 0;
-  if (key == 116)
-    env->scale.x = 0;
-  if (key == 121)
-    env->scale.y = 0;
   return (SUCCESS);
 }
