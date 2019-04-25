@@ -3,11 +3,12 @@
 void	legend(t_env *env)
 {
 	mlx_string_put(env->mlx_ptr, env->win_ptr, 10, 20, 0xFFFFFFF, "ZOOM :");
-	mlx_string_put(env->mlx_ptr, env->win_ptr, 20, 40, 0x999999, "<- / ->");
-	mlx_string_put(env->mlx_ptr, env->win_ptr, 10, 70, 0xFFFFFFF,
-			"DISPLACEMENT :");
-	mlx_string_put(env->mlx_ptr, env->win_ptr, 20, 90, 0x999999,
-			"W / A / S / D");
+	mlx_string_put(env->mlx_ptr, env->win_ptr, 20, 40, 0x999999, "(mouse)");
+	if (env->julia == 1)
+	{
+		mlx_string_put(env->mlx_ptr, env->win_ptr, 10, 70, 0xFFFFFFF, "CHANGE :");
+		mlx_string_put(env->mlx_ptr, env->win_ptr, 20, 90, 0x999999, "<- / ->");
+	}
 }
 
 void	is_error(int i)

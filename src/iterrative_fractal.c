@@ -32,9 +32,12 @@ void mandelbrot(t_envthread *e, int i, float y)
         px(e->data, (e->x.x - (int)(e->x_img / 2)) + M_WTH,
           (y - (int)(e->y_img / 2)) + M_HHT, 0x000000);
     else
-        px(e->data, (e->x.x - (int)(e->x_img / 2)) + M_WTH,
-          (y - (int)(e->y_img / 2)) + M_HHT,
-          lerp_non_init_color(0x110022, 0xDDBB77, i / e->it_max));
+		{
+			i = i - log(log(ft_sqrt(e->z_r * e->z_r + e->z_i * e->z_i))) / log(2);
+			px(e->data, (e->x.x - (int)(e->x_img / 2)) + M_WTH,
+				(y - (int)(e->y_img / 2)) + M_HHT, ((N_COLORS - 2) * i) / e->it_max);
+		}
+
 }
 
 void julia(t_envthread *e, int i, float y)
@@ -58,9 +61,40 @@ void julia(t_envthread *e, int i, float y)
 			px(e->data, (e->x.x - (int)(e->x_img / 2)) + M_WTH,
           (y - (int)(e->y_img / 2)) + M_HHT, 0x000000);
     else
-        px(e->data, (e->x.x - (int)(e->x_img / 2)) + M_WTH,
-          (y - (int)(e->y_img / 2)) + M_HHT,
-          lerp_non_init_color(0x001122, 0x77AADD, i / e->it_max));
+			px(e->data, (e->x.x - (int)(e->x_img / 2)) + M_WTH,
+				(y - (int)(e->y_img / 2)) + M_HHT,
+				lerp_non_init_color(0x110022, 0xDDBB77, i / e->it_max));
+}
+
+void buddhabrot(t_envthread *e, int i, float y)
+{
+    float tmp;
+		t_vec3 it;
+		int color;
+
+    e->c_r = e->x.x / e->zoom + e->x.y;
+    e->c_i = y / e->zoom + e->y1;
+    e->z_r = 0;
+    e->z_i = 0;
+		it.x = 100;
+		it.y = 1000;
+		it.z = 10000;
+		color = 0;
+    while ((e->z_r * e->z_r + e->z_i * e->z_i) < 4 && i < e->it_max)
+    {
+      tmp = e->z_r;
+      e->z_r = e->z_r * e->z_r - e->z_i * e->z_i + e->c_r;
+      e->z_i = 2 * e->z_i * tmp + e->c_i;
+      i = i + 1;
+    }
+    if (i < it.x)
+			color = 1;
+		if (i < it.y)
+			color = 1;
+		if (i < it.z)
+			color = 1;
+		px(e->data, (e->x.x - (int)(e->x_img / 2)) + M_WTH,
+			(y - (int)(e->y_img / 2)) + M_HHT, 0x000000);
 }
 
 void *open_thread(void *param)
@@ -76,6 +110,8 @@ void *open_thread(void *param)
         julia(e, 0, y);
       if (e->fractal.x == 1)
         mandelbrot(e, 0, y);
+			if (e->fractal.z == 1)
+	      buddhabrot(e, 0, y);
       y++;
   }
   pthread_exit(NULL);

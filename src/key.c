@@ -23,6 +23,31 @@ static void	dezoom(int x, int y, t_envthread *e)
 	e->it_max--;
 }
 
+static void is_event(t_env *env)
+{
+  int i;
+
+  i = 0;
+  if (env->move.x == 1 && env->julia == 1)
+  {
+    while (i < THREADS)
+    {
+      env->e_thread[i][0].c_r += 0.001f;
+      env->e_thread[i][0].c_i += 0.001f;
+      i++;
+    }
+  }
+  if (env->move.y == 1 && env->julia == 1)
+  {
+    while (i < THREADS)
+    {
+      env->e_thread[i][0].c_r -= 0.001f;
+      env->e_thread[i][0].c_i -= 0.001f;
+      i++;
+    }
+  }
+}
+
 int   mouse_event(int code, int x, int y, void *param)
 {
   t_env *env;
@@ -57,8 +82,12 @@ int		key_press(int key, void *param)
   env = (t_env *)param;
   if (key == ESC)
     win_close(env);
-  if (key == MOVE)
-    env->move = 1;
+  if (key == MORE)
+    env->move.x = 1;
+  if (key == LESS)
+    env->move.y = 1;
+  is_event(env);
+  fractal(env);
   return (SUCCESS);
 }
 
@@ -67,7 +96,9 @@ int		key_release(int key, void *param)
   t_env *env;
 
   env = (t_env *)param;
-  if (key == MOVE)
-    env->move = 0;
+  if (key == MORE)
+    env->move.x = 0;
+  if (key == LESS)
+    env->move.y = 0;
   return (SUCCESS);
 }

@@ -26,8 +26,6 @@ static void init_thread_mandelbrot(t_env *env)
     env_thread[i] = content;
     i++;
   }
-  env->x_img = content->x_img;
-  env->y_img = content->y_img;
   env->e_thread = env_thread;
 }
 
@@ -48,8 +46,8 @@ static void init_thread_julia(t_env *env)
     content->x.z = 3.0f;
     content->y1 = -2.2f;
     content->y2 = 2.2f;
-    content->c_r = 0.285;
-    content->c_i = 0.01;
+    content->c_r = 0.285f;
+    content->c_i = 0.01f;
     content->zoom = 200;
     content->it_max = 300;
     content->fractal.y = 1;
@@ -59,27 +57,34 @@ static void init_thread_julia(t_env *env)
     env_thread[i] = content;
     i++;
   }
-  env->x_img = content->x_img;
-  env->y_img = content->y_img;
+  env->julia = 1;
   env->e_thread = env_thread;
 }
 
-t_env *init_mandelbrot(t_env *env)
+t_env *init_fractal(t_env *env, int fractal)
 {
-  ft_bzero(env, sizeof(t_env));
-  env->mlx_ptr = mlx_init();
-  env->win_ptr = mlx_new_window(env->mlx_ptr, WIDTH, HEIGHT, "Fractol");
-  env->img = init_img(env->mlx_ptr, HEIGHT, WIDTH);
-  init_thread_mandelbrot(env);
-  return (env);
-}
+  int i;
 
-t_env *init_julia(t_env *env)
-{
   ft_bzero(env, sizeof(t_env));
   env->mlx_ptr = mlx_init();
   env->win_ptr = mlx_new_window(env->mlx_ptr, WIDTH, HEIGHT, "Fractol");
   env->img = init_img(env->mlx_ptr, HEIGHT, WIDTH);
-  init_thread_julia(env);
+  if (fractal == 1)
+    init_thread_mandelbrot(env);
+  if (fractal == 2)
+    init_thread_julia(env);
+  if (fractal == 3)
+  {
+    init_thread_mandelbrot(env);
+    i = 0;
+    while (i < THREADS)
+    {
+      env->e_thread[i][0].fractal.x = 0;
+      env->e_thread[i][0].fractal.z = 1;
+      i++;
+    }
+  }
+  env->x_img = env->e_thread[1][0].x_img;
+  env->y_img = env->e_thread[1][0].y_img;
   return (env);
 }

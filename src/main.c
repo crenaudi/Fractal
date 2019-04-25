@@ -21,8 +21,8 @@ int generate(void *param)
       a = a->next;
 
       else (generate)
-      déterminer c point au tiers de ab
-      déterminer d point au deux tiers de ab
+      déterminer c point au tiers de ab c = (a - b) / 3;
+      déterminer d point au deux tiers de ab d = c * 2;
       déterminer e sommet du triangle généré sur le tiers central de ab
       on va passer aux segments ac,ce,ed,db en indiquant le changement de niveau
       dessiner(a,c,n-1) on fait la même chose sur ac (premier tiers)
@@ -44,13 +44,11 @@ int main(int argc, char **argv)
     return (0);
   }
   if (ft_strcmp(argv[1], "mandelbrot") == 0)
-  {
-    fractal(init_mandelbrot(&env));
-  }
+    fractal(init_fractal(&env, 1));
   else if (ft_strcmp(argv[1], "julia") == 0)
-  {
-    fractal(init_julia(&env));
-  }
+    fractal(init_fractal(&env, 2));
+  else if (ft_strcmp(argv[1], "buddhabrot") == 0)
+    fractal(init_fractal(&env, 3));
   else
     is_error(3);
   //mlx_loop_hook(env.win_ptr, mandelbrot, (void *)&env);
