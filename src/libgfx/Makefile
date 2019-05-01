@@ -24,6 +24,7 @@ SRC = ft_gfx.c		\
 		rotation.c		\
 		img.c					\
 		color_HSL.c 	\
+		text_box.c		\
 	  scale.c
 OBJ = $(SRC:.c=.o)
 
@@ -32,17 +33,16 @@ OBJ = $(SRC:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJ)
+	@echo		"\033[0;32m [OK] \033[0m       \033[0;33m Compiling: Libgfx.a\033[0m"
 	@$(CC) $(CFLAGS) -g3 $(SRC) -I .
 	@$(AR) $(NAME) $(OBJ)
 	@$(RL) $(NAME)
-	@echo "/// all gfx ///"
+	@echo		"\033[0;33m [LIBGFX][SUCCESS] \033[0m"
 
 clean:
 	@$(RM) $(OBJ)
-	@echo "/// clean gfx ///"
 
 fclean: clean
 	@$(RM) $(NAME)
-	@echo "/// fclean gfx ///"
 
 re: fclean all

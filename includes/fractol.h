@@ -14,10 +14,10 @@
 
 # define ERROR 		-1
 # define SUCCESS	0
-# define WIDTH    1000
-# define HEIGHT   700
-# define M_WTH    500
-# define M_HHT    350
+# define WIDTH    1024
+# define HEIGHT   600
+# define M_WTH    512
+# define M_HHT    300
 # define THREADS  8
 #define N_COLORS  3*256
 # define ESC			53
@@ -35,6 +35,7 @@ struct s_env
   void          *win_ptr;
   t_vec2        move;
   t_img				  *img;
+  t_img				  *txt_box;
   t_envthread   **e_thread;
   t_vec2        mouse;
   t_vec2        scale;
@@ -86,5 +87,8 @@ int		    key_press(int key, void *param);
 int		    key_release(int key, void *param);
 void	    legend(t_env *env);
 void	    is_error(int i);
+void		  kill_env(t_env *env);
+void		  kill_env_threads(t_envthread **thread);
+void		  kill_ptr_img(t_env *env, t_img *div, int x, int y);
 
 # endif

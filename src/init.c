@@ -99,11 +99,15 @@ t_budd *do_tab(void)
 t_env *init_fractal(t_env *env, int fractal)
 {
   int i;
+	t_vec2	size;
 
+	size.x = 200;
+	size.y = 150;
   ft_bzero(env, sizeof(t_env));
   env->mlx_ptr = mlx_init();
   env->win_ptr = mlx_new_window(env->mlx_ptr, WIDTH, HEIGHT, "Fractol");
   env->img = init_img(env->mlx_ptr, HEIGHT, WIDTH);
+	env->txt_box = do_div(env->mlx_ptr, size, 0x222222);
   if (fractal == 1)
     init_thread_mandelbrot(env);
   if (fractal == 2)
@@ -113,10 +117,7 @@ t_env *init_fractal(t_env *env, int fractal)
     init_thread_mandelbrot(env);
     i = 0;
     while (i < THREADS)
-    {/*
-      env->e_thread[i][0].fractal.x = 0;
-      env->e_thread[i][0].fractal.z = 1;
-      env->e_thread[i][0].param_sup = do_tab();*/
+    {
       env->e_thread[i]->fractal.x = 0;
       env->e_thread[i]->fractal.z = 1;
       env->e_thread[i]->param_sup = do_tab();

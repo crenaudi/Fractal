@@ -2,6 +2,7 @@
 
 void win_close(t_env *env)
 {
+  kill_env(env);
   mlx_destroy_window(env->mlx_ptr, env->win_ptr);
   ft_bzero(env, sizeof(t_env));
   exit(0);

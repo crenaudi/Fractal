@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cadre_info.c                                       :+:      :+:    :+:   */
+/*   text_box.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: crenaudi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -11,3 +11,15 @@
 /* ************************************************************************** */
 
 #include "../../includes/gfx.h"
+
+t_img *do_div(void *mlx_ptr, t_vec2 size, int c)
+{
+  t_img	*div_info;
+  int   i;
+
+  div_info = init_img(mlx_ptr, size.x, size.y);
+  i = 0;
+  while (i < (size.x * size.y))
+    div_info->data[i++] = c;
+  return (div_info);
+}

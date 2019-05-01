@@ -60,6 +60,7 @@ float 				float_max(float *n);
 t_vec3 				rgbtoHSL(float r, float g, float b);
 int 					HSLtorgb(float hue, float sat, float lum);
 t_img 				*init_img(void *mlx_ptr, int x, int y);
+t_img 				*do_div(void *mlx_ptr, t_vec2 size, int c);
 float					vec2_dist(t_vec2 v2);
 t_color				init_c(int color);
 int						lerp_c(t_color s, t_color e, float t);

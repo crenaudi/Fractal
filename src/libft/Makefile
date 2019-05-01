@@ -88,17 +88,15 @@ OBJ = $(SRC:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJ)
+	@echo		"\033[0;32m [OK] \033[0m       \033[0;33m Compiling: Libft.a\033[0m"
 	@$(CC) $(CFLAGS) -g3 $(SRC) -I .
 	@$(AR) $(NAME) $(OBJ)
 	@$(RL) $(NAME)
-	@echo "/// all lib ok ///"
+	@echo		"\033[0;33m [LIBFT][SUCCESS] \033[0m"
 
 clean:
 	@$(RM) $(OBJ)
-	@echo "/// clean lib ok ///"
 
 fclean: clean
 	@$(RM) $(NAME)
-	@echo "/// fclean lib ok ///"
-
 re: fclean all

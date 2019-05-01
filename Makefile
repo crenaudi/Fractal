@@ -29,6 +29,7 @@ SRC = src/main.c								\
 			src/iterrative_fractal.c	\
 			src/init.c								\
 			src/info.c								\
+			src/clean.c								\
 			src/key.c
 OBJ = $(SRC:.c=.o)
 
@@ -40,25 +41,26 @@ OBJ = $(SRC:.c=.o)
 all: $(NAME)
 
 $(LIBFT):
-	make -sC $(LIBFT_FOLDER)
+	@make -sC $(LIBFT_FOLDER)
 
 $(LIBGFX):
-	make -sC $(LIBGFX_FOLDER)
+	@make -sC $(LIBGFX_FOLDER)
 
 $(NAME): $(OBJ) $(LIBFT) $(LIBGFX)
+	@echo		"\033[0;32m [OK] \033[0m       \033[0;33m Compiling:\033[0m" $<
 	@$(CC) -g3 $(MINILIBX) $(FRAMEWORK) $(THREAD) -o $(NAME) $(LIB_MATH) $(LIB) $(LIB2) $(LIBGFX) $(OBJ)
-	@echo "/// all fractol ///"
+	@echo		"\033[0;33m [FRACTOL][SUCCESS] \033[0m"
 
 clean:
 	@$(RM) $(OBJ)
-	make -sC $(LIBFT_FOLDER) clean
-	make -sC $(LIBGFX_FOLDER) clean
-	@echo "/// clean fractol ///"
+	@make -sC $(LIBFT_FOLDER) clean
+	@make -sC $(LIBGFX_FOLDER) clean
+	@echo		"\033[0;34m [CLEAN][SUCCESS] \033[0m"
 
 fclean: clean
 	@$(RM) $(NAME)
-	make -sC $(LIBFT_FOLDER) fclean
-	make -sC $(LIBGFX_FOLDER) fclean
-	@echo "/// fclean fractol ///"
+	@make -sC $(LIBFT_FOLDER) fclean
+	@make -sC $(LIBGFX_FOLDER) fclean
+	@echo		"\033[0;34m [FCLEAN][SUCCESS] \033[0m"
 
 re: fclean all
