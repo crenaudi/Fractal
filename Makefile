@@ -32,6 +32,9 @@ SRC = src/main.c								\
 			src/key.c
 OBJ = $(SRC:.c=.o)
 
+%.o: %.c includes/fractol.h
+	$(CC) -o $@ -c $< $(CFLAGS)
+
 .PHONY: all fclean re
 
 all: $(NAME)
@@ -44,18 +47,18 @@ $(LIBGFX):
 
 $(NAME): $(OBJ) $(LIBFT) $(LIBGFX)
 	@$(CC) -g3 $(MINILIBX) $(FRAMEWORK) $(THREAD) -o $(NAME) $(LIB_MATH) $(LIB) $(LIB2) $(LIBGFX) $(OBJ)
-	@echo "/// all fdf ///"
+	@echo "/// all fractol ///"
 
 clean:
 	@$(RM) $(OBJ)
 	make -sC $(LIBFT_FOLDER) clean
 	make -sC $(LIBGFX_FOLDER) clean
-	@echo "/// clean fdf ///"
+	@echo "/// clean fractol ///"
 
 fclean: clean
 	@$(RM) $(NAME)
 	make -sC $(LIBFT_FOLDER) fclean
 	make -sC $(LIBGFX_FOLDER) fclean
-	@echo "/// fclean fdf ///"
+	@echo "/// fclean fractol ///"
 
 re: fclean all

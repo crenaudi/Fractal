@@ -19,7 +19,7 @@
 # define M_WTH    500
 # define M_HHT    350
 # define THREADS  8
-#define N_COLORS  3*255
+#define N_COLORS  3*256
 # define ESC			53
 # define MOVE			5
 # define MORE			116
@@ -27,6 +27,7 @@
 
 typedef struct s_env      t_env;
 typedef struct s_envthread   t_envthread;
+typedef struct s_budd  t_budd;
 
 struct s_env
 {
@@ -59,16 +60,27 @@ struct s_envthread
   float         x_img;
   float         y_img;
   float         it_max;
+  void          *param_sup;
+};
+
+struct s_budd
+{
+  t_vec3      it;
+  int         **px_r;
+  int         **px_v;
+  int         **px_b;
 };
 
 int       init_env(t_env *env);
 void      win_close(t_env *env);
+int       **do_tab_px(int y);
+t_budd    *do_tab(void);
 t_env     *init_fractal(t_env *env, int fractal);
 void      *open_thread(void *param);
 int       fractal(t_env *env);
 void      julia(t_envthread *e, int i, float y);
 void      mandelbrot(t_envthread *e, int i, float y);
-void			line(t_env *env, t_point p1, t_point p2);
+void      buddhabrot(t_envthread *e, int i, float y);
 int       mouse_event(int code, int x, int y, void *param);
 int		    key_press(int key, void *param);
 int		    key_release(int key, void *param);

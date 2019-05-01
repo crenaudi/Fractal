@@ -23,6 +23,7 @@ SRC = ft_gfx.c		\
 		product.c			\
 		rotation.c		\
 		img.c					\
+		color_HSL.c 	\
 	  scale.c
 OBJ = $(SRC:.c=.o)
 

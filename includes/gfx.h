@@ -20,16 +20,10 @@
 typedef int		t_vec2 __attribute__((ext_vector_type(2)));
 typedef float	t_vec3 __attribute__((ext_vector_type(3)));
 typedef t_vec3					t_point;
-typedef struct s_color	t_color;
 typedef struct s_img		t_img;
-
-struct					s_color
-{
-	int		r;
-	int		g;
-	int		b;
-	int		color;
-};
+typedef struct s_color	t_color;
+typedef struct s_hsl		t_hsl;
+typedef union u_rgb		 	t_rgb;
 
 struct					s_img
 {
@@ -40,6 +34,31 @@ struct					s_img
 	int					endian;
 };
 
+struct					s_color
+{
+	int		r;
+	int		g;
+	int		b;
+	int		color;
+};
+
+struct					s_hsl
+{
+	int					h;
+	int					s;
+	int					l;
+};
+
+union s_rgb
+{
+  unsigned char        rgba[4];
+  unsigned int         full;
+};
+
+float 				float_max(float *n);
+float 				float_max(float *n);
+t_vec3 				rgbtoHSL(float r, float g, float b);
+int 					HSLtorgb(float hue, float sat, float lum);
 t_img 				*init_img(void *mlx_ptr, int x, int y);
 float					vec2_dist(t_vec2 v2);
 t_color				init_c(int color);

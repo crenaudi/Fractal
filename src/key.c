@@ -23,6 +23,8 @@ static void	dezoom(int x, int y, t_envthread *e)
 	e->it_max--;
 }
 
+//produit en croix
+
 static void is_event(t_env *env)
 {
   int i;
