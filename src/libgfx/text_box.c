@@ -12,14 +12,14 @@
 
 #include "../../includes/gfx.h"
 
-t_img *do_div(void *mlx_ptr, t_vec2 size, int c)
+t_img *do_div(void *mlx_ptr, int x, int y, int c)
 {
   t_img	*div_info;
   int   i;
 
-  div_info = init_img(mlx_ptr, size.x, size.y);
+  div_info = init_img(mlx_ptr, x, y);
   i = 0;
-  while (i < (size.x * size.y))
+  while (i < (x * y))
     div_info->data[i++] = c;
   return (div_info);
 }

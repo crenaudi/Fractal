@@ -12,7 +12,7 @@ void		kill_env_threads(t_envthread **thread)
   int i;
 
   i = -1;
-  while (i++ < THREADS)
+  while (++i < THREADS)
   {
     ft_bzero(thread[i], sizeof(t_envthread));
     free(thread[i]);
@@ -23,6 +23,14 @@ void		kill_env_threads(t_envthread **thread)
 void		  kill_env(t_env *env)
 {
   kill_ptr_img(env, env->img, HEIGHT, WIDTH);
-  kill_ptr_img(env, env->txt_box, 150, 200);
-  //kill_env_threads(env->e_thread);
+  kill_ptr_img(env, env->txt_box, 250, 200);
+  kill_env_threads(env->e_thread);
+}
+
+void win_close(t_env *env)
+{
+  kill_env(env);
+  mlx_destroy_window(env->mlx_ptr, env->win_ptr);
+  ft_bzero(env, sizeof(t_env));
+  exit(0);
 }

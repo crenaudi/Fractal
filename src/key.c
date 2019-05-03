@@ -1,54 +1,66 @@
 #include "../includes/fractol.h"
 
-void win_close(t_env *env)
-{
-  kill_env(env);
-  mlx_destroy_window(env->mlx_ptr, env->win_ptr);
-  ft_bzero(env, sizeof(t_env));
-  exit(0);
-}
-
 static void	zoom(int x, int y, t_envthread *e)
 {
 	e->x.y = (x / e->zoom + e->x.y) - (x / (e->zoom * 1.3));
+  e->x.z = (x / e->zoom + e->x.z) + (x / (e->zoom * 1.3));
 	e->y1 = (y / e->zoom + e->y1) - (y / (e->zoom * 1.3));
+  e->y2 = (y / e->zoom + e->y2) + (y / (e->zoom * 1.3));
 	e->zoom *= 1.3;
 	e->it_max++;
+
 }
 
 static void	dezoom(int x, int y, t_envthread *e)
 {
-	e->x.y = (x / e->zoom + e->x.y)  - (x / (e->zoom / 1.3));
+	e->x.y = (x / e->zoom + e->x.y) - (x / (e->zoom / 1.3));
+  e->x.z = (x / e->zoom + e->x.z) + (x / (e->zoom / 1.3));
 	e->y1 = (y / e->zoom + e->y1) - (y / (e->zoom / 1.3));
+  e->y2 = (y / e->zoom + e->y2) + (y / (e->zoom / 1.3));
 	e->zoom /= 1.3;
 	e->it_max--;
 }
-
 //produit en croix
 
-static void is_event(t_env *env)
+static void julia_move(t_env *env)
 {
   int i;
 
   i = 0;
-  if (env->move.x == 1 && env->julia == 1)
+  if (env->move.x == 1)
   {
     while (i < THREADS)
     {
-      env->e_thread[i][0].c_r += 0.001f;
-      env->e_thread[i][0].c_i += 0.001f;
+      env->e_thread[i]->c_r += 0.001f;
+      env->e_thread[i]->c_i += 0.001f;
       i++;
     }
   }
-  if (env->move.y == 1 && env->julia == 1)
+  if (env->move.y == 1)
   {
     while (i < THREADS)
     {
-      env->e_thread[i][0].c_r -= 0.001f;
-      env->e_thread[i][0].c_i -= 0.001f;
+      env->e_thread[i]->c_r -= 0.001f;
+      env->e_thread[i]->c_i -= 0.001f;
       i++;
     }
   }
+}
+
+static void change_color(t_env *env)
+{
+  int i;
+
+  i = -1;
+  if (env->color == 1)
+    while (++i < THREADS)
+      env->e_thread[i]->HSL = 0.0f;
+  else if (env->color == 2)
+    while (++i < THREADS)
+      env->e_thread[i]->HSL = 80.0f;
+  else if (env->color == 0)
+    while (++i < THREADS)
+      env->e_thread[i]->HSL = 180.0f;
 }
 
 int   mouse_event(int code, int x, int y, void *param)
@@ -62,7 +74,7 @@ int   mouse_event(int code, int x, int y, void *param)
   {
     while (i < THREADS)
     {
-      zoom(x, y, &env->e_thread[i][0]);
+      zoom(x, y, env->e_thread[i]);
       i++;
     }
   }
@@ -70,7 +82,7 @@ int   mouse_event(int code, int x, int y, void *param)
   {
     while (i < THREADS)
     {
-      dezoom(x, y, &env->e_thread[i][0]);
+      dezoom(x, y, env->e_thread[i]);
       i++;
     }
   }
@@ -89,7 +101,15 @@ int		key_press(int key, void *param)
     env->move.x = 1;
   if (key == LESS)
     env->move.y = 1;
-  is_event(env);
+  if (key == RED)
+    env->color = 1;
+  if (key == GREEN)
+    env->color = 2;
+  if (key == BLUE)
+    env->color = 0;
+  change_color(env);
+  if (env->julia == 1)
+    julia_move(env);
   fractal(env);
   return (SUCCESS);
 }

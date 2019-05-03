@@ -27,6 +27,8 @@ LIBGFX = $(LIBGFX_FOLDER)/gfx.a
 RM = rm -f
 SRC = src/main.c								\
 			src/iterrative_fractal.c	\
+			src/buddhabrot.c					\
+			src/color_print.c					\
 			src/init.c								\
 			src/info.c								\
 			src/clean.c								\
