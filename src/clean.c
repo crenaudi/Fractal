@@ -7,6 +7,31 @@ void		kill_ptr_img(t_env *env, t_img *div, int x, int y)
 	free(div);
 }
 
+static void		clean_tab(int **px_tab)
+{
+  int x;
+  int	y;
+
+	y = -1;
+	while (++y < WIDTH)
+	{
+    x = -1;
+    while (++x < HEIGHT)
+		  free(&px_tab[y][x]);
+	}
+	free(px_tab);
+}
+
+static void		kill_budd(void *param)
+{
+  t_budd *budd;
+
+  budd = (t_budd *)param;
+  clean_tab(budd->px_r);
+  clean_tab(budd->px_v);
+  clean_tab(budd->px_b);
+}
+
 void		kill_env_threads(t_envthread **thread)
 {
   int i;
@@ -14,6 +39,8 @@ void		kill_env_threads(t_envthread **thread)
   i = -1;
   while (++i < THREADS)
   {
+    if (thread[i]->fractal == 4)
+      kill_budd(thread[i]->param_sup);
     ft_bzero(thread[i], sizeof(t_envthread));
     free(thread[i]);
   }
@@ -23,7 +50,7 @@ void		kill_env_threads(t_envthread **thread)
 void		  kill_env(t_env *env)
 {
   kill_ptr_img(env, env->img, HEIGHT, WIDTH);
-  kill_ptr_img(env, env->txt_box, 250, 200);
+  kill_ptr_img(env, env->txt_box, 420, 200);
   kill_env_threads(env->e_thread);
 }
 

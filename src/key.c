@@ -2,22 +2,22 @@
 
 static void	zoom(int x, int y, t_envthread *e)
 {
-	e->x.y = (x / e->zoom + e->x.y) - (x / (e->zoom * 1.3));
-  e->x.z = (x / e->zoom + e->x.z) + (x / (e->zoom * 1.3));
-	e->y1 = (y / e->zoom + e->y1) - (y / (e->zoom * 1.3));
-  e->y2 = (y / e->zoom + e->y2) + (y / (e->zoom * 1.3));
-	e->zoom *= 1.3;
+	e->x.y = (x / e->zoom + e->x.y) - (x / (e->zoom * 1.2));
+  e->x.z = (x / e->zoom + e->x.z) + (x / (e->zoom * 1.2));
+	e->y1 = (y / e->zoom + e->y1) - (y / (e->zoom * 1.2));
+  e->y2 = (y / e->zoom + e->y2) + (y / (e->zoom * 1.2));
+	e->zoom *= 1.2;
 	e->it_max++;
 
 }
 
 static void	dezoom(int x, int y, t_envthread *e)
 {
-	e->x.y = (x / e->zoom + e->x.y) - (x / (e->zoom / 1.3));
-  e->x.z = (x / e->zoom + e->x.z) + (x / (e->zoom / 1.3));
-	e->y1 = (y / e->zoom + e->y1) - (y / (e->zoom / 1.3));
-  e->y2 = (y / e->zoom + e->y2) + (y / (e->zoom / 1.3));
-	e->zoom /= 1.3;
+	e->x.y = (x / e->zoom + e->x.y) - (x / (e->zoom / 1.2));
+	e->x.z = (x / e->zoom + e->x.z) + (x / (e->zoom / 1.2));
+	e->y1 = (y / e->zoom + e->y1) - (y / (e->zoom / 1.2));
+	e->y2 = (y / e->zoom + e->y2) + (y / (e->zoom / 1.2));
+	e->zoom /= 1.2;
 	e->it_max--;
 }
 //produit en croix
@@ -31,8 +31,8 @@ static void julia_move(t_env *env)
   {
     while (i < THREADS)
     {
-      env->e_thread[i]->c_r += 0.001f;
-      env->e_thread[i]->c_i += 0.001f;
+      env->e_thread[i]->c_r += 0.0001f;
+      env->e_thread[i]->c_i += 0.0001f;
       i++;
     }
   }
@@ -40,8 +40,8 @@ static void julia_move(t_env *env)
   {
     while (i < THREADS)
     {
-      env->e_thread[i]->c_r -= 0.001f;
-      env->e_thread[i]->c_i -= 0.001f;
+      env->e_thread[i]->c_r -= 0.0001f;
+      env->e_thread[i]->c_i -= 0.0001f;
       i++;
     }
   }
@@ -69,22 +69,16 @@ int   mouse_event(int code, int x, int y, void *param)
   int   i;
 
   env = (t_env *)param;
-  i = 0;
+  i = -1;
   if (code == 4 || code == 1)
   {
-    while (i < THREADS)
-    {
+    while (++i < THREADS)
       zoom(x, y, env->e_thread[i]);
-      i++;
-    }
   }
 	else if (code == 5 || code == 2)
   {
-    while (i < THREADS)
-    {
+    while (++i < THREADS)
       dezoom(x, y, env->e_thread[i]);
-      i++;
-    }
   }
   fractal(env);
   return (SUCCESS);
@@ -108,7 +102,7 @@ int		key_press(int key, void *param)
   if (key == BLUE)
     env->color = 0;
   change_color(env);
-  if (env->julia == 1)
+  if (env->e_thread[1]->fractal == 2)
     julia_move(env);
   fractal(env);
   return (SUCCESS);

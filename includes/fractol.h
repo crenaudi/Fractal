@@ -14,12 +14,11 @@
 
 # define ERROR 		-1
 # define SUCCESS	0
-# define WIDTH    1024
-# define HEIGHT   600
-# define M_WTH    512
-# define M_HHT    300
+# define WIDTH    1074
+# define HEIGHT   550
+# define M_WTH    537
+# define M_HHT    275
 # define THREADS  6
-#define N_COLORS  3*256
 # define ESC			53
 # define RED	   	83
 # define GREEN		84
@@ -41,7 +40,6 @@ struct s_env
   t_img				  *txt_box;
   t_envthread   **e_thread;
   int           color;
-  int           julia;
   float         x_img;
   float         y_img;
 };
@@ -77,19 +75,20 @@ int       init_env(t_env *env);
 void      win_close(t_env *env);
 int       **do_tab_px(int y);
 t_budd    *do_tab(void);
-t_env     *init_fractal(t_env *env, int fractal);
+t_env     *init_fractal(t_env *env, int fractal, char *title);
 void      *open_thread(void *param);
 int       fractal(t_env *env);
 void      julia(t_envthread *e, int i, float y);
 void      mandelbrot(t_envthread *e, int i, float y);
+void      burning_ship(t_envthread *e, int i, float y);
 void      buddhabrot(t_envthread *e, int i, float y);
 void      color_px(t_envthread *e, float i, float y, int color);
 void	    put_px(int *data, int x, int y, int color);
-void      compil(t_env *env, int n, int y);
+void      compil(t_env *env, int n);
 int       mouse_event(int code, int x, int y, void *param);
 int		    key_press(int key, void *param);
 int		    key_release(int key, void *param);
-void	    legend(t_env *env);
+void	    legend(t_env *env, int fractal);
 void	    is_error(int i);
 void		  kill_env(t_env *env);
 void		  kill_env_threads(t_envthread **thread);

@@ -8,12 +8,12 @@ int **do_tab_px(int y)
 
   if (!(px = (int **)malloc(sizeof(int *) * WIDTH)))
       return (0);
-  while (y++ < WIDTH)
+  while (++y < WIDTH)
   {
     if (!(pixel = (int *)malloc(sizeof(int) * HEIGHT)))
         return (0);
     x = -1;
-    while (x++ > 0)
+    while (++x < HEIGHT)
       pixel[x] = 0;
     px[y] = pixel;
   }
@@ -35,32 +35,38 @@ t_budd *do_tab(void)
   return ((void *)tab_px);
 }
 
-void compil(t_env *env, int n, int y)
+void compil(t_env *env, int n)
 {
-  int x;
-	int i;
 	int *pixel;
+  int x;
+  int y;
+	int i;
 
+  ft_putendl("dbt compil");
 	y = -1;
-	n = 0;
-	ft_putendl("hello");
 	if (!(pixel = (int *)malloc(sizeof(int) * (WIDTH * HEIGHT))))
 		return ;
-	while (y++ < WIDTH)
+	while (++y < WIDTH)
 	{
 		x = -1;
-		while (x++ < HEIGHT)
+		while (++x < HEIGHT)
 		{
 			i = -1;
-			while (i++ < THREADS)
-				pixel[n++] = ((t_budd *)(env->e_thread[i]->param_sup))->px_r[y][x];
+			while (++i < THREADS)
+      {
+        pixel[n] = ((t_budd *)(env->e_thread[i]->param_sup))->px_r[y][x];
+        ft_putnbr(n);
+      }
+      ft_putendl("j'imprime");
 			put_px(env->img->data, (x - (int)(env->x_img / 2)) + M_WTH,
 				(y - (int)(env->y_img / 2)) + M_HHT,
 					lerp_non_init_color(0x000000, 0xFFFFFFF,
 						(float)((pixel[n] > 255) ? 255 : pixel[n]) / 255));
+      n++;
 		}
 	}
 	free(pixel);
+  ft_putendl("fin compil");
 }
 
 void buddhabrot(t_envthread *e, int i, float y)
