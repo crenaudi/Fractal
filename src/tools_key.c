@@ -52,19 +52,19 @@ static void is_move(t_env *env)
   i = -1;
   if (env->abscisse.x == 1)
     while (++i < THREADS)
-      env->e_thread[i]->x1 -= 0.05f;
+      env->e_thread[i]->x1 -= 0.02f;
 
   if (env->abscisse.y == 1)
     while (++i < THREADS)
-      env->e_thread[i]->x1 += 0.05f;
+      env->e_thread[i]->x1 += 0.02f;
 
 	if (env->ordonne.x == 1)
 		while (++i < THREADS)
-		  env->e_thread[i]->y1 += 0.05f;
+		  env->e_thread[i]->y1 += 0.02f;
 
 	if (env->ordonne.y == 1)
 		while (++i < THREADS)
-			env->e_thread[i]->y1 -= 0.05f;
+			env->e_thread[i]->y1 -= 0.02f;
 }
 
 int		key_press(int key, void *param)

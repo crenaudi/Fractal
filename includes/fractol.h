@@ -86,6 +86,8 @@ int       fractal(t_env *env);
 void      julia(t_envthread *e, int i, float y);
 void      mandelbrot(t_envthread *e, int i, float y);
 void      burning_ship(t_envthread *e, int i, float y);
+void      celtic(t_envthread *e, int i, float y);
+void      mandelbar(t_envthread *e, int i, float y);
 void      buddhabrot(t_envthread *e, int i, float y);
 void      color_px(t_envthread *e, float i, float y, int color);
 void	    put_px(int *data, int x, int y, int color);

@@ -27,20 +27,39 @@ static void init_thread_burning(t_envthread *thrd)
   thrd->x1 = -3.5f;
   thrd->y1 = -2.0f;
   thrd->zoom = 200;
-  thrd->it_max = 80;
+  thrd->it_max = 120;
   thrd->fractal = 3;
+  thrd->HSL = 180.0f;
+}
+
+static void init_thread_celtic(t_envthread *thrd)
+{
+  thrd->x1 = -4.6f;
+  thrd->y1 = -1.9f;
+  thrd->zoom = 145;
+  thrd->it_max = 120;
+  thrd->fractal = 4;
+  thrd->HSL = 180.0f;
+}
+
+static void init_thread_mandelbar(t_envthread *thrd)
+{
+  thrd->x1 = -4.2f;
+  thrd->y1 = -1.9f;
+  thrd->zoom = 145;
+  thrd->it_max = 100;
+  thrd->fractal = 5;
   thrd->HSL = 180.0f;
 }
 
 static void init_thread_buddabrot(t_envthread *thrd)
 {
-  thrd->x1 = -4.1f;
-  thrd->y1 = -2.2f;
-  thrd->zoom = 200;
-  thrd->it_max = 50;
-  thrd->fractal = 4;
+  thrd->x1 = -3.3f;
+  thrd->y1 = -1.3f;
+  thrd->zoom = 210;
+  thrd->it_max = 90;
+  thrd->fractal = 6;
   thrd->HSL = 180.0f;
-  thrd->param_sup = do_tab();
 }
 
 t_env *init_fractal(t_env *env, int fractal, char *title)
@@ -53,7 +72,7 @@ t_env *init_fractal(t_env *env, int fractal, char *title)
   env->mlx_ptr = mlx_init();
   env->win_ptr = mlx_new_window(env->mlx_ptr, WIDTH, HEIGHT, ft_strjoin("PROJET FRACTOL : ", title));
   env->img = init_img(env->mlx_ptr, HEIGHT, WIDTH);
-	env->txt_box = do_div(env->mlx_ptr, 420, 200, 0x111122);
+	env->txt_box = do_div(env->mlx_ptr, 450, 200, 0x111122);
   if (!(env->e_thread = (t_envthread **)malloc(sizeof(t_envthread *) * THREADS)))
     return (NULL);
   while (i < THREADS)
@@ -68,6 +87,10 @@ t_env *init_fractal(t_env *env, int fractal, char *title)
     if (fractal == 3)
       init_thread_burning(thrd);
     if (fractal == 4)
+      init_thread_celtic(thrd);
+    if (fractal == 5)
+      init_thread_mandelbar(thrd);
+    if (fractal == 6)
       init_thread_buddabrot(thrd);
     thrd->data = env->img->data;
     env->e_thread[i] = thrd;

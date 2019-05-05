@@ -15,17 +15,21 @@ void	legend(t_env *env, int fractal)
 	mlx_string_put(env->mlx_ptr, env->win_ptr, 30, 210, 0x6655FF,
 		"----------------");
 	color = (env->color == 1) ? 0x6655FF : 0x555566;
-	mlx_string_put(env->mlx_ptr, env->win_ptr, 30, 255, color, "RED <-");
+	mlx_string_put(env->mlx_ptr, env->win_ptr, 30, 245, color, "RED <-");
 	color = (env->color == 2) ? 0x6655FF : 0x555566;
-	mlx_string_put(env->mlx_ptr, env->win_ptr, 30, 275, color, "GREEN <-");
+	mlx_string_put(env->mlx_ptr, env->win_ptr, 30, 265, color, "GREEN <-");
 	color = (env->color == 0) ? 0x6655FF : 0x555566;
-	mlx_string_put(env->mlx_ptr, env->win_ptr, 30, 295, color, "BLUE <-");
+	mlx_string_put(env->mlx_ptr, env->win_ptr, 30, 285, color, "BLUE <-");
 	color = (fractal == 1) ? 0x6655FF : 0x555566;
-	mlx_string_put(env->mlx_ptr, env->win_ptr, 30, 335, color, "-> Mandelbrot");
+	mlx_string_put(env->mlx_ptr, env->win_ptr, 30, 325, color, "-> Mandelbrot");
 	color = (fractal == 2) ? 0x6655FF : 0x555566;
-	mlx_string_put(env->mlx_ptr, env->win_ptr, 30, 355, color, "-> Julia");
+	mlx_string_put(env->mlx_ptr, env->win_ptr, 30, 346, color, "-> Julia");
 	color = (fractal == 3) ? 0x6655FF : 0x555566;
-	mlx_string_put(env->mlx_ptr, env->win_ptr, 30, 375, color, "-> Burning ship");
+	mlx_string_put(env->mlx_ptr, env->win_ptr, 30, 367, color, "-> Burning ship");
+	color = (fractal == 4) ? 0x6655FF : 0x555566;
+	mlx_string_put(env->mlx_ptr, env->win_ptr, 30, 388, color, "-> Celtic");
+	color = (fractal == 5) ? 0x6655FF : 0x555566;
+	mlx_string_put(env->mlx_ptr, env->win_ptr, 30, 409, color, "-> Mandelbar");
 }
 
 void	is_error(int i)
@@ -37,7 +41,8 @@ void	is_error(int i)
 		ft_putendl("-M pour Mandelbrot");
 		ft_putendl("-J pour Julia");
 		ft_putendl("-BS pour Burning Ship");
-		ft_putendl("-B pour Buddhabrot");
+		ft_putendl("-C pour Celtic");
+		ft_putendl("-MD pour Mandelbar");
 		exit(0);
 	}
 	if (i == 1)
