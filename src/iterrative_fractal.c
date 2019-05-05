@@ -4,7 +4,7 @@ void mandelbrot(t_envthread *e, int i, float y)
 {
     float tmp;
 
-    e->c_r = e->x.x / e->zoom + e->x.y;
+    e->c_r = e->x / e->zoom + e->x1;
     e->c_i = y / e->zoom + e->y1;
     e->z_r = 0;
     e->z_i = 0;
@@ -26,7 +26,7 @@ void julia(t_envthread *e, int i, float y)
 
     c_r = e->c_r;
     c_i = e->c_i;
-    e->z_r = e->x.x / e->zoom + e->x.y;
+    e->z_r = e->x / e->zoom + e->x1;
     e->z_i = y / e->zoom + e->y1;
     while ((e->z_r * e->z_r + e->z_i * e->z_i) < 4 && i < e->it_max)
     {
@@ -42,7 +42,7 @@ void burning_ship(t_envthread *e, int i, float y)
 {
     float tmp;
 
-    e->c_r = e->x.x / e->zoom + e->x.y;
+    e->c_r = e->x / e->zoom + e->x1;
     e->c_i = y / e->zoom + e->y1;
     e->z_r = 0;
     e->z_i = 0;

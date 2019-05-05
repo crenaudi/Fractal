@@ -58,9 +58,7 @@ void compil(t_env *env, int n)
         ft_putnbr(n);
       }
       ft_putendl("j'imprime");
-			put_px(env->img->data, (x - (int)(env->x_img / 2)) + M_WTH,
-				(y - (int)(env->y_img / 2)) + M_HHT,
-					lerp_non_init_color(0x000000, 0xFFFFFFF,
+			put_px(env->img->data, x, y, lerp_non_init_color(0x000000, 0xFFFFFFF,
 						(float)((pixel[n] > 255) ? 255 : pixel[n]) / 255));
       n++;
 		}
@@ -79,7 +77,7 @@ void buddhabrot(t_envthread *e, int i, float y)
 		budd = (t_budd *)e->param_sup;
 		if (!(tmp_pixels = (t_vec2 *)malloc(sizeof(t_vec2) * (WIDTH * HEIGHT))))
 			return;
-    e->c_r = e->x.x / e->zoom + e->x.y;
+    e->c_r = e->x / e->zoom + e->x1;
     e->c_i = y / e->zoom + e->y1;
     e->z_r = 0;
     e->z_i = 0;
@@ -89,7 +87,7 @@ void buddhabrot(t_envthread *e, int i, float y)
       e->z_r = e->z_r * e->z_r - e->z_i * e->z_i + e->c_r;
       e->z_i = 2 * e->z_i * tmp + e->c_i;
 			tmp_pixels[i].y = (int)((e->z_i - e->y1) * e->zoom);
-			tmp_pixels[i].x = (int)((e->z_r - e->x.y) * e->zoom);
+			tmp_pixels[i].x = (int)((e->z_r - e->x1) * e->zoom);
       i = i + 1;
     }
 		if (i != e->it_max)

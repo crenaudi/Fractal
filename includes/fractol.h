@@ -16,14 +16,15 @@
 # define SUCCESS	0
 # define WIDTH    1074
 # define HEIGHT   550
-# define M_WTH    537
-# define M_HHT    275
 # define THREADS  6
 # define ESC			53
 # define RED	   	83
 # define GREEN		84
 # define BLUE			85
-# define MOVE			5
+# define TOP			126
+# define BOTTOM		125
+# define RIGHT		124
+# define LEFT			123
 # define MORE			116
 # define LESS 		121
 
@@ -35,10 +36,12 @@ struct s_env
 {
   void          *mlx_ptr;
   void          *win_ptr;
-  t_vec2        move;
   t_img				  *img;
   t_img				  *txt_box;
   t_envthread   **e_thread;
+  t_vec2        move;
+  t_vec2        abscisse;
+  t_vec2        ordonne;
   int           color;
   float         x_img;
   float         y_img;
@@ -48,9 +51,9 @@ struct s_envthread
 {
   int           *data;
   int           fractal;
-  t_vec3        x;
+  float         x;
+  float         x1;
   float         y1;
-  float         y2;
   float         zoom;
   float         z_r;
   float         z_i;

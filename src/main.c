@@ -37,7 +37,7 @@ int fractal(t_env *env)
     x = -1.f;
     while (x++ < WIDTH)
     {
-      env->e_thread[i]->x.x = x;
+      env->e_thread[i]->x = x;
       if (pthread_create(&thread[i], NULL, open_thread, (void *)env->e_thread[i]))
         return (EXIT_FAILURE);
       if (pthread_join(thread[i], NULL))
@@ -78,37 +78,3 @@ int main(int argc, char **argv)
   mlx_loop(env.mlx_ptr);
   return (0);
 }
-
-/*
-int generate(void *param)
-{
-    int   i;
-    int   n;
-    t_lst *a;
-    t_lst *b;
-    t_env *env;
-
-    i = 0;
-    env = (t_env *)param;
-    a = env->p;
-    while (i++ < 3)
-    {
-      b = a->next;
-      //draw(a,b,n);
-      if (env->n != 0)
-        line(env, a->p, b->p);
-      a = a->next;
-
-      else (generate)
-      déterminer c point au tiers de ab c = (a - b) / 3;
-      déterminer d point au deux tiers de ab d = c * 2;
-      déterminer e sommet du triangle généré sur le tiers central de ab
-      on va passer aux segments ac,ce,ed,db en indiquant le changement de niveau
-      dessiner(a,c,n-1) on fait la même chose sur ac (premier tiers)
-      dessiner(c,e,n-1) on fait la même chose sur ce (1er cote du triangle généré)
-      dessiner(e,d,n-1) on fait la même chose sur ed (2ème cote du triangle généré)
-      dessiner(d,b,n-1) on fait la même chose sur ab (dernier tiers)
-
-    }
-    return (SUCCESS);
-}*/

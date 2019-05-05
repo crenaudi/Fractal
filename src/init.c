@@ -2,7 +2,7 @@
 
 static void init_thread_mandelbrot(t_envthread *thrd)
 {
-  thrd->x.y = -3.3f;
+  thrd->x1 = -3.3f;
   thrd->y1 = -1.3f;
   thrd->zoom = 210;
   thrd->it_max = 90;
@@ -12,7 +12,7 @@ static void init_thread_mandelbrot(t_envthread *thrd)
 
 static void init_thread_julia(t_envthread *thrd)
 {
-  thrd->x.y = -2.7f;
+  thrd->x1 = -2.7f;
   thrd->y1 = -1.4f;
   thrd->zoom = 200;
   thrd->it_max = 210;
@@ -24,7 +24,7 @@ static void init_thread_julia(t_envthread *thrd)
 
 static void init_thread_burning(t_envthread *thrd)
 {
-  thrd->x.y = -3.5f;
+  thrd->x1 = -3.5f;
   thrd->y1 = -2.0f;
   thrd->zoom = 200;
   thrd->it_max = 80;
@@ -34,7 +34,7 @@ static void init_thread_burning(t_envthread *thrd)
 
 static void init_thread_buddabrot(t_envthread *thrd)
 {
-  thrd->x.y = -4.1f;
+  thrd->x1 = -4.1f;
   thrd->y1 = -2.2f;
   thrd->zoom = 200;
   thrd->it_max = 50;
