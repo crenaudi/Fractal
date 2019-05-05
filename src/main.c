@@ -7,7 +7,7 @@ void *open_thread(void *param)
 
   e = (t_envthread *)param;
   y = 0.f;
-  while (y < e->y_img)
+  while (y < HEIGHT)
   {
     if (e->fractal == 1)
       mandelbrot(e, 0, y);
@@ -33,9 +33,9 @@ int fractal(t_env *env)
     ft_bzero(env->img->data, WIDTH * HEIGHT * (env->img->bpp / 8));
     if (!(thread = (pthread_t *)malloc(sizeof(pthread_t) * THREADS)))
       return (ERROR);
-    part = env->y_img / THREADS;
+    part = WIDTH / THREADS;
     x = -1.f;
-    while (x++ < env->x_img)
+    while (x++ < WIDTH)
     {
       env->e_thread[i]->x.x = x;
       if (pthread_create(&thread[i], NULL, open_thread, (void *)env->e_thread[i]))

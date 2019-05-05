@@ -1,22 +1,29 @@
 #include "../includes/fractol.h"
 
-static void	zoom(int x, int y, t_envthread *e)
+static void	zoom(int xx, int yy, t_envthread *e)
 {
+	float x;
+	float y;
+
+	x = (float)xx;
+	y = (float)yy;
+
 	e->x.y = (x / e->zoom + e->x.y) - (x / (e->zoom * 1.2));
-  e->x.z = (x / e->zoom + e->x.z) + (x / (e->zoom * 1.2));
 	e->y1 = (y / e->zoom + e->y1) - (y / (e->zoom * 1.2));
-  e->y2 = (y / e->zoom + e->y2) + (y / (e->zoom * 1.2));
 	e->zoom *= 1.2;
 	e->it_max++;
 
 }
 
-static void	dezoom(int x, int y, t_envthread *e)
+static void	dezoom(int xx, int yy, t_envthread *e)
 {
+	float x;
+	float y;
+
+	x = (float)xx;
+	y = (float)yy;
 	e->x.y = (x / e->zoom + e->x.y) - (x / (e->zoom / 1.2));
-	e->x.z = (x / e->zoom + e->x.z) + (x / (e->zoom / 1.2));
 	e->y1 = (y / e->zoom + e->y1) - (y / (e->zoom / 1.2));
-	e->y2 = (y / e->zoom + e->y2) + (y / (e->zoom / 1.2));
 	e->zoom /= 1.2;
 	e->it_max--;
 }

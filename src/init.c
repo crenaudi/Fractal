@@ -2,60 +2,44 @@
 
 static void init_thread_mandelbrot(t_envthread *thrd)
 {
-  thrd->x.y = -4.1f;
-  thrd->x.z = 2.6f;
-  thrd->y1 = -1.7f;
-  thrd->y2 = 1.7f;
-  thrd->zoom = 200;
-  thrd->it_max = 100;
+  thrd->x.y = -3.3f;
+  thrd->y1 = -1.3f;
+  thrd->zoom = 210;
+  thrd->it_max = 90;
   thrd->fractal = 1;
   thrd->HSL = 180.0f;
-  thrd->x_img = ((thrd->x.z - thrd->x.y) * thrd->zoom);
-  thrd->y_img = ((thrd->y2 - thrd->y1) * thrd->zoom);
 }
 
 static void init_thread_julia(t_envthread *thrd)
 {
-  thrd->x.y = -3.0f;
-  thrd->x.z = 3.0f;
-  thrd->y1 = -1.7f;
-  thrd->y2 = 1.7f;
+  thrd->x.y = -2.7f;
+  thrd->y1 = -1.4f;
   thrd->zoom = 200;
-  thrd->it_max = 300;
+  thrd->it_max = 210;
   thrd->fractal = 2;
   thrd->c_r = 0.285f;
   thrd->c_i = 0.01f;
   thrd->HSL = 180.0f;
-  thrd->x_img = ((thrd->x.z - thrd->x.y) * thrd->zoom);
-  thrd->y_img = ((thrd->y2 - thrd->y1) * thrd->zoom);
 }
 
 static void init_thread_burning(t_envthread *thrd)
 {
   thrd->x.y = -3.5f;
-  thrd->x.z = 2.0f;
   thrd->y1 = -2.0f;
-  thrd->y2 = 1.0f;
   thrd->zoom = 200;
-  thrd->it_max = 400;
+  thrd->it_max = 80;
   thrd->fractal = 3;
   thrd->HSL = 180.0f;
-  thrd->x_img = ((thrd->x.z - thrd->x.y) * thrd->zoom);
-  thrd->y_img = ((thrd->y2 - thrd->y1) * thrd->zoom);
 }
 
 static void init_thread_buddabrot(t_envthread *thrd)
 {
   thrd->x.y = -4.1f;
-  thrd->x.z = 2.6f;
   thrd->y1 = -2.2f;
-  thrd->y2 = 2.2f;
   thrd->zoom = 200;
   thrd->it_max = 50;
   thrd->fractal = 4;
   thrd->HSL = 180.0f;
-  thrd->x_img = ((thrd->x.z - thrd->x.y) * thrd->zoom);
-  thrd->y_img = ((thrd->y2 - thrd->y1) * thrd->zoom);
   thrd->param_sup = do_tab();
 }
 
