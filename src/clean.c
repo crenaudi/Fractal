@@ -7,7 +7,7 @@ void		kill_ptr_img(t_env *env, t_img *div, int x, int y)
 	free(div);
 }
 
-static void		clean_tab(int **px_tab)
+static void		clean_tab_px(int **px_tab)
 {
   int x;
   int	y;
@@ -27,9 +27,9 @@ static void		kill_budd(void *param)
   t_budd *budd;
 
   budd = (t_budd *)param;
-  clean_tab(budd->px_r);
-  clean_tab(budd->px_v);
-  clean_tab(budd->px_b);
+  clean_tab_px(budd->px_r);
+  clean_tab_px(budd->px_v);
+  clean_tab_px(budd->px_b);
 }
 
 void		kill_env_threads(t_envthread **thread)
