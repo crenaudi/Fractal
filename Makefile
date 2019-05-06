@@ -12,7 +12,7 @@
 
 NAME = fractol
 CC = cc
-CFLAGS = -Wall -Wextra
+CFLAGS = -Wall -Wextra -O2
 CFLAGS += -I./$(LIBGFX_FOLDER)
 MINILIBX = -I /usr/local/include/mlx.h -L /usr/local/lib/ -lmlx
 FRAMEWORK = -framework OpenGl -framework AppKit

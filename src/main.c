@@ -76,8 +76,8 @@ int main(int argc, char **argv)
     fractal(init_fractal(&env, 5, str[3]));
   else
     is_error(3);
-  mlx_hook(env.win_ptr, 4, 0, mouse_event, (void*)&env);
-  mlx_hook(env.win_ptr, 5, 0, mouse_release, (void*)&env);
+  mlx_hook(env.win_ptr, 4, (1L<<2), mouse_event, (void*)&env);
+  mlx_hook(env.win_ptr, 5, (1L<<3), mouse_release, (void*)&env);
   mlx_hook(env.win_ptr, 2, 0, key_press, (void *)&env);
   mlx_hook(env.win_ptr, 3, 0, key_release, (void *)&env);
   mlx_loop(env.mlx_ptr);

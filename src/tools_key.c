@@ -23,7 +23,7 @@ static void julia_move(t_env *env)
   }
 }
 
-static void change_color(int key, t_env *env)
+void change_color(int key, t_env *env)
 {
   int i;
 
