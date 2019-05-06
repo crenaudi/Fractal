@@ -72,7 +72,7 @@ t_env *init_fractal(t_env *env, int fractal, char *title)
   env->mlx_ptr = mlx_init();
   env->win_ptr = mlx_new_window(env->mlx_ptr, WIDTH, HEIGHT, ft_strjoin("PROJET FRACTOL : ", title));
   env->img = init_img(env->mlx_ptr, HEIGHT, WIDTH);
-	env->txt_box = do_div(env->mlx_ptr, 450, 200, 0x111122);
+	env->txt_box = do_div(env->mlx_ptr, 530, 200, 0x111122);
   if (!(env->e_thread = (t_envthread **)malloc(sizeof(t_envthread *) * THREADS)))
     return (NULL);
   while (i < THREADS)
@@ -96,7 +96,5 @@ t_env *init_fractal(t_env *env, int fractal, char *title)
     env->e_thread[i] = thrd;
     i++;
   }
-  env->x_img = env->e_thread[1]->x_img;
-  env->y_img = env->e_thread[1]->y_img;
   return (env);
 }

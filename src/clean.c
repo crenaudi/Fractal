@@ -50,7 +50,7 @@ void		kill_env_threads(t_envthread **thread)
 void		  kill_env(t_env *env)
 {
   kill_ptr_img(env, env->img, HEIGHT, WIDTH);
-  kill_ptr_img(env, env->txt_box, 450, 200);
+  kill_ptr_img(env, env->txt_box, 530, 200);
   kill_env_threads(env->e_thread);
 }
 

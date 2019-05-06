@@ -45,8 +45,6 @@ struct s_env
   t_vec2        abscisse;
   t_vec2        ordonne;
   int           color;
-  float         x_img;
-  float         y_img;
 };
 
 struct s_envthread
@@ -61,8 +59,6 @@ struct s_envthread
   float         z_i;
   float         c_r;
   float         c_i;
-  float         x_img;
-  float         y_img;
   float         it_max;
   float         HSL;
   void          *param_sup;
@@ -93,6 +89,7 @@ void      color_px(t_envthread *e, float i, float y, int color);
 void	    put_px(int *data, int x, int y, int color);
 void      compil(t_env *env, int n);
 int       mouse_event(int code, int x, int y, void *param);
+int       mouse_release(int code, int x, int y, void *param);
 int		    key_press(int key, void *param);
 int		    key_release(int key, void *param);
 void	    legend(t_env *env, int fractal);

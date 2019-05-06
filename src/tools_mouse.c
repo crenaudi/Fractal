@@ -48,3 +48,12 @@ int   mouse_event(int code, int x, int y, void *param)
   fractal(env);
   return (SUCCESS);
 }
+
+int   mouse_release(int code, int x, int y, void *param)
+{
+  t_env *env;
+
+  env = (t_env *)param;
+	printf("code = %d x = %d y = %d", code, x, y);
+  return (SUCCESS);
+}
