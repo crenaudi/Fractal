@@ -11,7 +11,6 @@
 # include "mlx.h"
 # include "libft.h"
 # include "gfx.h"
-# include "fdf.h"
 
 # define ERROR 		-1
 # define SUCCESS	0
@@ -28,7 +27,7 @@
 # define LEFT			123
 # define MORE			116
 # define LESS 		121
-# define FDF  		51
+# define FD 			51
 
 typedef struct s_env        t_env;
 typedef struct s_envthread  t_envthread;
@@ -45,6 +44,7 @@ struct s_env
   t_vec2        abscisse;
   t_vec2        ordonne;
   int           color;
+  char          *pixel_data;
 };
 
 struct s_envthread
@@ -104,6 +104,6 @@ void	    is_error(int i);
 void		  kill_env(t_env *env);
 void		  kill_env_threads(t_envthread **thread);
 void		  kill_ptr_img(t_env *env, t_img *div, int x, int y);
-void      make_fdf(t_img *img);
+void			do_fd(t_env *env);
 
 # endif

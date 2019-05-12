@@ -74,6 +74,8 @@ int		key_press(int key, void *param)
   env = (t_env *)param;
   if (key == ESC)
     win_close(env);
+  if (key == FD)
+    do_fd(env);
   if (key == MORE)
     env->move.x = 1;
   if (key == LESS)
@@ -86,8 +88,6 @@ int		key_press(int key, void *param)
 		env->ordonne.x = 1;
 	if (key == BOTTOM)
 		env->ordonne.y = 1;
-	if (key == FDF)
-		make_fdf(env->img);
   change_color(key, env);
 	is_move(env);
   if (env->e_thread[1]->fractal == 2)

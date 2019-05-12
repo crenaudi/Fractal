@@ -56,6 +56,7 @@ void		  kill_env(t_env *env)
 
 void win_close(t_env *env)
 {
+  //fdf_parciel_clean_fdf(env->fdf);
   kill_env(env);
   mlx_destroy_window(env->mlx_ptr, env->win_ptr);
   ft_bzero(env, sizeof(t_env));

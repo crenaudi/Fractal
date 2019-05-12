@@ -24,9 +24,6 @@ LIBFT = $(LIBFT_FOLDER)/libft.a
 LIBGFX_FOLDER = src/libgfx
 LIB2 = -L./$(LIBGFX_FOLDER) -lft
 LIBGFX = $(LIBGFX_FOLDER)/gfx.a
-FDF_FOLDER = src/bonus
-LIB3 = -L./$(FDF_FOLDER) -lft
-FDF = $(FDF_FOLDER)/fdf.a
 RM = rm -f
 SRC = src/main.c								\
 			src/cal.c									\
@@ -38,6 +35,7 @@ SRC = src/main.c								\
 			src/bonus.c								\
 			src/tools_mouse.c					\
 			src/tools_key.c
+
 OBJ = $(SRC:.c=.o)
 
 %.o: %.c includes/fractol.h
@@ -53,26 +51,21 @@ $(LIBFT):
 $(LIBGFX):
 	@make -sC $(LIBGFX_FOLDER)
 
-$(FDF):
-	@make -sC $(FDF_FOLDER)
-
-$(NAME): $(OBJ) $(LIBFT) $(LIBGFX) $(FDF)
+$(NAME): $(OBJ) $(LIBFT) $(LIBGFX)
 	@echo		"\033[0;32m [OK] \033[0m       \033[0;33m Compiling:\033[0m" $<
-	@$(CC) -g3 $(MINILIBX) $(FRAMEWORK) $(THREAD) -o $(NAME) $(LIB_MATH) $(LIB) $(LIBFT) $(LIB2) $(LIBGFX) $(LIB3) $(FDF) $(OBJ)
+	@$(CC) -g3 $(MINILIBX) $(FRAMEWORK) $(THREAD) -o $(NAME) $(LIB_MATH) $(LIB) $(LIBFT) $(LIB2) $(LIBGFX) $(OBJ)
 	@echo		"\033[0;33m [FRACTOL][SUCCESS] \033[0m"
 
 clean:
 	@$(RM) $(OBJ)
 	@make -sC $(LIBFT_FOLDER) clean
 	@make -sC $(LIBGFX_FOLDER) clean
-	@make -sC $(FDF_FOLDER) clean
 	@echo		"\033[0;34m [CLEAN][SUCCESS] \033[0m"
 
 fclean: clean
 	@$(RM) $(NAME)
 	@make -sC $(LIBFT_FOLDER) fclean
 	@make -sC $(LIBGFX_FOLDER) fclean
-	@make -sC $(FDF_FOLDER) fclean
 	@echo		"\033[0;34m [FCLEAN][SUCCESS] \033[0m"
 
 re: fclean all

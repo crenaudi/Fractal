@@ -1,45 +1,39 @@
 #include "../includes/fractol.h"
-/*
-static void		clean_t(t_point **tab)
-{
-  int x;
-  int	y;
 
-	y = -1;
-	while (++y < 100)
-	{
-    x = -1;
-    while (++x < 100)
-		  free(&tab[y][x]);
-	}
-	free(tab);
-}
-*/
-void make_fdf(t_img *img)
+static void create_img(t_img *img, int fd)
 {
-  t_point **tab;
-  t_point *nb;
-  int x;
-  int y;
+	int x;
+	int y;
+	const char *n;
 
-  x = HEIGHT / 4;
-  if (!(tab = (t_point **)malloc(sizeof(t_point *) * (HEIGHT / 2))))
-    return ;
-  while (++x < HEIGHT / 2)
+  y = -1;
+  while (++y < 900)
   {
-    y = WIDTH / 4;
-    if (!(nb = (t_point *)malloc(sizeof(t_point) * (WIDTH / 2))))
-      return ;
-    while (++y < WIDTH / 2)
+    x = -1;
+    while (++x < 520)
     {
-      nb[y].x = (float)(x);
-      nb[y].y = (float)(y);
-      nb[y].z = (img->data[y + x * WIDTH] == 0) ? 5 : 0;
-      img->data++;
+			if (img->data[y + x * WIDTH] != 0)
+			{
+				n = ft_itoa((img->data[y + x * WIDTH] / 100000));
+				write(fd, n, ft_strlen(n));
+			}
+			else
+			 	write(fd, "0", 1);
+			if (x < 520)
+				write(fd, " ", 1);
     }
-    tab[x] = nb;
+		write(fd, "\n", 1);
   }
-  ft_putendl("avt");
-  fdf(tab, 275, 537);
-  free(tab);
+}
+
+void		do_fd(t_env *env)
+{
+	int			fd;
+	char		*name;
+
+	name = "fractol.fdf";
+	if ((fd = open(name, O_WRONLY | O_CREAT, S_IRWXO)) == -1)
+		return ;
+	create_img(env->img, fd);
+	close(fd) == -1 ? is_error(ERROR) : 0;
 }
