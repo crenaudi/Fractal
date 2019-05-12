@@ -1,25 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   text_box.c                                         :+:      :+:    :+:   */
+/*   fhsl_min_max.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: crenaudi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/29 15:18:21 by crenaudi          #+#    #+#             */
-/*   Updated: 2019/05/12 15:32:11 by crenaudi         ###   ########.fr       */
+/*   Created: 2019/05/12 15:41:10 by crenaudi          #+#    #+#             */
+/*   Updated: 2019/05/12 15:55:35 by crenaudi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/gfx.h"
 
-t_img	*do_div(void *mlx_ptr, int x, int y, int c)
+float		hsl_float_min(float *n)
 {
-	t_img	*div_info;
+	float	min;
 	int		i;
 
-	div_info = init_img(mlx_ptr, x, y);
 	i = 0;
-	while (i < (x * y))
-		div_info->data[i++] = c;
-	return (div_info);
+	min = n[i];
+	while (i++ < 2)
+	{
+		if (min > n[i])
+			min = n[i];
+	}
+	return (min);
+}
+
+float		hsl_float_max(float *n)
+{
+	float	max;
+	int		i;
+
+	i = 0;
+	max = n[i];
+	while (i++ < 2)
+	{
+		if (max < n[i])
+			max = n[i];
+	}
+	return (max);
 }

@@ -6,7 +6,7 @@
 #    By: crenaudi <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/13 14:13:30 by crenaudi          #+#    #+#              #
-#    Updated: 2019/03/29 15:38:32 by crenaudi         ###   ########.fr        #
+#    Updated: 2019/05/12 17:38:25 by crenaudi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,13 +26,14 @@ LIB2 = -L./$(LIBGFX_FOLDER) -lft
 LIBGFX = $(LIBGFX_FOLDER)/gfx.a
 RM = rm -f
 SRC = src/main.c								\
-			src/cal.c									\
-			src/buddhabrot.c					\
+			src/cal.c							\
 			src/color_print.c					\
-			src/init.c								\
-			src/info.c								\
-			src/clean.c								\
-			src/bonus.c								\
+			src/init.c							\
+			src/init_suite.c					\
+			src/info.c							\
+			src/clean.c							\
+			src/bonus.c							\
+			src/zoom.c							\
 			src/tools_mouse.c					\
 			src/tools_key.c
 

@@ -6,7 +6,7 @@
 #    By: crenaudi <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/13 14:13:30 by crenaudi          #+#    #+#              #
-#    Updated: 2019/03/29 15:38:04 by crenaudi         ###   ########.fr        #
+#    Updated: 2019/05/12 15:42:10 by crenaudi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,16 +16,17 @@ CC = gcc
 RL = ranlib
 RM = rm -f
 CFLAGS = -Wall -Werror -Wextra -c
-SRC = ft_gfx.c		\
-	  lerp.c				\
-	  raddeg.c			\
+SRC = ft_gfx.c			\
+		lerp.c			\
+		raddeg.c		\
 		normalize.c		\
-		product.c			\
+		product.c		\
 		rotation.c		\
-		img.c					\
-		color_HSL.c 	\
+		img.c			\
+		fhsl_min_max.c	\
+		hsl_color.c 	\
 		text_box.c		\
-	  scale.c
+	  	scale.c
 OBJ = $(SRC:.c=.o)
 
 .PHONY: all clean fclean re
