@@ -6,42 +6,19 @@
 /*   By: crenaudi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/12 16:10:21 by crenaudi          #+#    #+#             */
-/*   Updated: 2019/05/12 17:39:50 by crenaudi         ###   ########.fr       */
+/*   Updated: 2019/05/12 19:40:50 by crenaudi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fractol.h"
 
-static void		clean_tab_px(int **px_tab)
-{
-	int	x;
-	int	y;
-
-	y = -1;
-	while (++y < WIDTH)
-	{
-		x = -1;
-		while (++x < HEIGHT)
-			free(&px_tab[y][x]);
-	}
-	free(px_tab);
-}
-
 void			kill_env_threads(t_envthread **thread)
 {
 	int		i;
-	t_budd	*budd;
 
 	i = -1;
 	while (++i < THREADS)
 	{
-		if (thread[i]->fractal == 6)
-		{
-			budd = (t_budd *)thread[i]->param_sup;
-			clean_tab_px(budd->px_r);
-			clean_tab_px(budd->px_v);
-			clean_tab_px(budd->px_b);
-		}
 		ft_bzero(thread[i], sizeof(t_envthread));
 		free(thread[i]);
 	}

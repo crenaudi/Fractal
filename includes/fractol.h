@@ -6,7 +6,7 @@
 /*   By: crenaudi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/12 15:10:44 by crenaudi          #+#    #+#             */
-/*   Updated: 2019/05/12 17:43:33 by crenaudi         ###   ########.fr       */
+/*   Updated: 2019/05/12 19:37:31 by crenaudi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@
 
 typedef struct s_env		t_env;
 typedef struct s_envthread	t_envthread;
-typedef struct s_budd		t_budd;
 
 struct				s_env
 {
@@ -74,21 +73,11 @@ struct				s_envthread
 	float			c_i;
 	float			it_max;
 	float			hsl;
-	void			*param_sup;
-};
-
-struct				s_budd
-{
-	t_vec3			it;
-	int				**px_r;
-	int				**px_v;
-	int				**px_b;
 };
 
 int					init_env(t_env *env);
 void				win_close(t_env *env);
 int					**do_tab_px(int y);
-t_budd				*do_tab(void);
 t_env				*init_fractal(t_env *env, int fractal, char *title);
 void				init_thread_mandelbrot(t_envthread *thrd, float hsl);
 void				init_thread_julia(t_envthread *thrd, float hsl);

@@ -6,7 +6,7 @@
 /*   By: crenaudi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/12 16:19:16 by crenaudi          #+#    #+#             */
-/*   Updated: 2019/05/12 16:48:10 by crenaudi         ###   ########.fr       */
+/*   Updated: 2019/05/12 19:38:33 by crenaudi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ int				fractal(t_env *env)
 		if (x == part && part <= WIDTH && i++)
 			part += part;
 	}
+	free(thread);
 	fractal_suite(env);
 	return (SUCCESS);
 }
